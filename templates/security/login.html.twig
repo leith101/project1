@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}Connexion{% endblock %}</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  {% block css %}
+    <!-- Fichiers CSS des bibliothèques -->
+    <link rel="stylesheet" href="{{asset('libraries/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/icofont/icofont.min.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/owl.carousel/assets/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/boxicons/css/boxicons.min.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/venobox/venobox.css')}}">
+    <link rel="stylesheet" href="{{asset('libraries/aos/aos.css')}}">
+    <!-- Fichier CSS principal du modèle -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+  {% endblock %}
+</head>
+
+<body>
+
+<div class="form-container sign-up-container">
+		<form action="{{ path('app_register') }}" method="post">
+			<h1>Create Account</h1>
+				<button  type="submit">
+        Sign up
+    </button>
+		</form>
+	</div>
+
+  <!-- ======= Section Héro ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    {% block body %}
+       {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+<div class="container" id="container">
+	
+	<div class="form-container sign-in-container">
+		<form method="post">
+         <h1>Sign in</h1>
+            {% if error %}
+                <div style="color: red; text-align: center;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div style="margin-bottom: 10px; text-align: center;">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
+
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" style="width: 100%;" autocomplete="email" required autofocus>
+
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" style="width: 100%;" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+            <button style="margin-top: 10px; width: 100%;" type="submit">
+                Se connecter
+            </button>
+             <p class="small mb-0"><a href="{{ path('app_forgot_password_request') }}">forget password ?</a></p>
+        </form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us, please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Bikee</h1>
+				<p>Enter your personal details and start the journey with us</p>
+				<a href="{{ path('app_register') }}" class="ghost">Sign Up</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
+    {% endblock %}
+
+    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+    {% block js %}
+      <!-- Fichiers JS des bibliothèques -->
+      <script src="{{asset('libraries/jquery/jquery.min.js')}}"></script>
+      <script src="{{asset('libraries/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+      <script src="{{asset('libraries/jquery.easing/jquery.easing.min.js')}}"></script>
+      <script src="{{asset('libraries/php-email-form/validate.js')}}"></script>
+      <script src="{{asset('libraries/waypoints/jquery.waypoints.min.js')}}"></script>
+      <script src="{{asset('libraries/counterup/counterup.min.js')}}"></script>
+      <script src="{{asset('libraries/owl.carousel/owl.carousel.min.js')}}"></script>
+      <script src="{{asset('libraries/isotope-layout/isotope.pkgd.min.js')}}"></script>
+      <script src="{{asset('libraries/venobox/venobox.min.js')}}"></script>
+      <script src="{{asset('libraries/aos/aos.js')}}"></script>
+      <!-- Script ajouté pour basculer entre les panneaux -->
+      <script>
+        document.getElementById('signUp').addEventListener('click', function() {
+          document.getElementById('container').classList.add('right-panel-active');
+        });
+
+        document.getElementById('signIn').addEventListener('click', function() {
+          document.getElementById('container').classList.remove('right-panel-active');
+        });
+      </script>
+      <!-- Fichier JS principal du modèle -->
+      <script src="{{asset('js/login.js')}}"></script>
+    {% endblock %}
+
+  </body>
+
+  </html>

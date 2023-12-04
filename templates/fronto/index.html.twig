@@ -1,0 +1,158 @@
+{% extends 'contact.html.twig' %}
+
+{% block title %}Hello FrontoController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 900px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 10px 6px; }
+        .search-form { margin-top: 10px; }
+        .search-results { margin-top: 20px; }
+        #datepicker {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            color: purple;
+        }
+        
+        .participate-button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <h1>Welcome to our events</h1>
+
+    <div class="example-wrapper">
+        <!-- Search Form -->
+        <form class="search-form">
+            <!-- Use flatpickr to create a datepicker -->
+            <input type="text" id="datepicker" name="datepicker" placeholder="Select Date">
+
+            <!-- Include the flatpickr library and initialize the datepicker -->
+            <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.css">
+
+            <label for="place">Select Place:</label>
+            <select id="place" name="place">
+                <option value="gammarth">gammarth</option>
+                <option value="marsa">marsa</option>
+                <option value="carthage">carthage</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <button type="button" onclick="searchEvent()" class="search-button">Search</button>
+        </form>
+
+        <!-- Display Event Description -->
+        <div class="search-results">
+            <label for="event-description">Event Description:</label>
+            <textarea id="event-description" name="event-description" readonly></textarea>
+        </div>
+
+        <!-- Participate Button -->
+        <button type="button" class="participate-button" onclick="navigateToTicketContent()">Participate</button>
+        
+    </div>
+
+    <script>
+        flatpickr("#datepicker", {
+            enableTime: false,
+            dateFormat: "Y-m-d",
+        });
+    </script> 
+    <script>
+        function navigateToTicketContent() {
+            // Use the path to the 'load-ticket-content' route
+            var url = "{{ path('load-ticket-content') }}";
+    
+            // Navigate to the URL
+            window.location.href = url;
+        }
+    </script>
+    <script>   
+        function searchEvent() {
+            console.log('searchEvent function called');
+            var selectedDate = document.getElementById("datepicker").value;
+            var selectedPlace = document.getElementById("place").value;
+
+            // AJAX request to fetch event details from the server
+            fetch(`/get_event_description?date=${selectedDate}&place=${selectedPlace}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update the event description textarea
+                    document.getElementById("event-description").value = data.description;
+
+                    // Show the participate button when an event is found
+                    var participateButton = document.querySelector('.participate-button');
+                    participateButton.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error fetching event details:', error);
+                });
+        }
+    </script>
+
+    <!-- Include qrious library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            
+
+			
+        </div>
+    </div>
+
+    <!-- Add this script to your HTML template -->
+    <script>
+        function participate() {
+            
+        }
+    </script>
+{% endblock %}

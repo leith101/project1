@@ -1,0 +1,65 @@
+{% extends 'back1.html.twig' %}
+
+{% block title %}Maintenance{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; padding: 20px;">
+
+        <h1>Maintenance</h1>
+
+        <div style="margin: 0 auto; width: 80%;">
+            <a href="{{ path('app_maintenance_tri') }}" class="btn btn-primary">Sort by Start Time</a>
+
+            <table class="table" style="width: 100%; background-color: #f2f2f2; color: #333;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if sortedMaintenances is defined %}
+                        {% for maintenance in sortedMaintenances %}
+                            <tr>
+                                <td>{{ maintenance.id }}</td>
+                                <td>{{ maintenance.startTime ? maintenance.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ maintenance.endTime ? maintenance.endTime|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('app_maintenance_show', {'id': maintenance.id}) }}">Show</a>
+                                    <a href="{{ path('app_maintenance_edit', {'id': maintenance.id}) }}">Edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">No records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {# Use the unsorted maintenances if sortedMaintenances is not defined #}
+                        {% for maintenance in maintenances %}
+                            <tr>
+                                <td>{{ maintenance.id }}</td>
+                                <td>{{ maintenance.startTime ? maintenance.startTime|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ maintenance.endTime ? maintenance.endTime|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>
+                                    <a href="{{ path('app_maintenance_show', {'id': maintenance.id}) }}">Show</a>
+                                    <a href="{{ path('app_maintenance_edit', {'id': maintenance.id}) }}">Edit</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4">No records found</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <div style="margin-top: 20px;">
+                <a href="{{ path('app_maintenance_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

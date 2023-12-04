@@ -1,0 +1,69 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+<br>
+<input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+<br><br>
+    <h1>Event index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Image</th>
+                <th>description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.name }}</td>
+                <td>{{ event.place }}</td>
+                <td>{{ event.price }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.image }}</td>
+                <td>{{ event.description }}</td>
+                <td>
+                    <a href="{{ path('app_event_show', {'id': event.id}) }}">show</a>
+                    <a href="{{ path('app_event_edit', {'id': event.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        
+    </table>
+
+    <a href="{{ path('app_event_new') }}">Create new</a>
+    <h1>Welcome to our events</h1>
+    <script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+    </script>
+{% endblock %}

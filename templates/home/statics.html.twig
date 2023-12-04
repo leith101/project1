@@ -1,0 +1,46 @@
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+    <h1>Statistiques</h1>
+
+    <canvas id="userChart" width="500" height="100"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Récupérer les données du contrôleur (par exemple, nombre total d'utilisateurs)
+            var totalUsers = {{ totalUsers }};
+
+            // Créer un tableau de données pour le graphique
+            var data = {
+                labels: ["Total d'utilisateurs"],
+                datasets: [{
+                    label: "Nombre d'utilisateurs",
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    data: [totalUsers],
+                }],
+            };
+
+            // Configurer les options du graphique
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            // Récupérer le contexte du canevas
+            var ctx = document.getElementById('userChart').getContext('2d');
+
+            // Créer le graphique
+            var myChart = new Chart(ctx, {
+                type: 'bar', // Vous pouvez également utiliser 'line' pour un graphique en courbe
+                data: data,
+                options: options,
+            });
+        });
+    </script>
+{% endblock %}

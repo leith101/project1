@@ -1,0 +1,111 @@
+{% extends 'back.html.twig' %}
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+
+{# //recherche avec ajax multi fonction // #}
+
+<br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+    <br><br>
+	<div class="card">
+		
+		
+		
+		<h5 class="card-header">Table Caption</h5>
+		<div class="table-responsive text-nowrap">
+			<table class="table">
+				<caption class="ms-4">
+					List of products
+				</caption>
+				<thead>
+					<tr>
+						<th>Idprod</th>
+						<th>Nom produit</th>
+						<th>Description</th>
+						<th>Prix</th>
+						<th>Remise</th>
+						
+						<th>Image</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for produit in produits %}
+						<tr>
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>{{ produit.idprod }}</strong>
+							</td>
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>{{ produit.nomprod }}</strong>
+							</td>
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>{{ produit.descriptionprod }}</strong>
+							</td>
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>{{ produit.prixprod }}</strong>
+							</td>
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>{{ produit.remise }}</strong>
+							</td>
+							
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<img src="{{ asset('produitimages/' ~ produit.imageprod)}}" style="height: 100px;"></img>
+							</td>
+						
+							<td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>
+									<form method="post" action="{{ path('app_produit_delete', {'idprod': produit.idprod}) }}">
+										<button type="submit" id="confirm-ban-btn" class="btn btn-danger">Supprimer</button>
+									</form>
+
+								</strong>
+							</td>
+              <td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>
+									<form method="post" action="{{ path('app_produit_edit', {'idprod': produit.idprod}) }}">
+										<button type="submit" id="confirm-ban-btn" class="btn btn-success">Modifier</button>
+									</form>
+
+								</strong>
+							</td>
+
+
+						</tr>
+					{% endfor %}
+
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+    {# recherche avec ajax  #}
+	<script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+	<br>
+{% endblock %}

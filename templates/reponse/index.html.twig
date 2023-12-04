@@ -1,0 +1,82 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Index des Réponses{% endblock %}
+
+{% block body %}
+    <style>
+        /* Styles pour la table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f8f9fa;
+        }
+        .table tbody tr:nth-of-type(odd) {
+            background-color: #f3f4f6;
+        }
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        .table a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .table a:hover {
+            text-decoration: underline;
+        }
+        /* Style pour le bouton "Créer un nouveau" */
+        .btn-create {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745; /* Couleur verte */
+            color: #fff; /* Texte en blanc */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease; /* Transition de couleur au survol */
+        }
+        .btn-create:hover {
+            background-color: #218838; /* Nouvelle couleur au survol */
+        }
+    </style>
+
+    <h1>Index des Réponses</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Réponse</th>
+                <th>Description Réponse</th>
+                <th>Date Réponse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>{{ reponse.idReponse }}</td>
+                <td>{{ reponse.descriptionReponse }}</td>
+                <td>{{ reponse.dateReponse ? reponse.dateReponse|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reponse_show', {'id_reponse': reponse.id_reponse}) }}">Voir</a>
+                    <a href="{{ path('app_reponse_edit', {'id_reponse': reponse.id_reponse}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+
+    <a href="{{ path('app_reponse_new') }}" class="btn-create">Créer un nouveau</a>
+{% endblock %}

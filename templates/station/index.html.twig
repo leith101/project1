@@ -1,0 +1,51 @@
+{% extends 'back1.html.twig' %}
+
+{% block title %}Stations{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; padding: 20px;">
+
+        <h1>Stations</h1>
+
+        <div style="margin: 0 auto; width: 80%;">
+            <table class="table" style="width: 100%; background-color: #f2f2f2; color: #333;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom_s</th>
+                        <th>Emplacement_s</th>
+                        <th>Description_s</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for station in stations %}
+                        <tr>
+                            <td>{{ station.id }}</td>
+                            <td>{{ station.nomS }}</td>
+                            <td>{{ station.emplacementS }}</td>
+                            <td>{{ station.descriptionS }}</td>
+                            <td>
+                                <a href="{{ path('app_station_show', {'id': station.id}) }}">Show</a>
+                                <a href="{{ path('app_station_edit', {'id': station.id}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Ajoutez le bouton de téléchargement Excel ici -->
+            <div style="margin-top: 20px;">
+                <a href="{{ path('app_station_chicha') }}" class="btn btn-primary">Télécharger Excel</a>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <a href="{{ path('app_station_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

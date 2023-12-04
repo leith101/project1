@@ -1,0 +1,54 @@
+{% extends 'contact.html.twig' %}
+
+
+{% block title %}Réclamation{% endblock %}
+
+{% block body %}
+    <h1>Réclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID de la réclamation</th>
+                <td>{{ reclamation.idReclamation }}</td>
+            </tr>
+            <tr>
+                <th>Catégorie de la réclamation</th>
+                <td>{{ reclamation.categorieReclamation }}</td>
+            </tr>
+            <tr>
+                <th>Objet de la réclamation</th>
+                <td>{{ reclamation.objetReclamation }}</td>
+            </tr>
+            <tr>
+                <th>Description de la réclamation</th>
+                <td>{{ reclamation.descriptionReclamation }}</td>
+            </tr>
+            <tr>
+                <th>Date de la réclamation</th>
+                <td>{{ reclamation.dateReclamation ? reclamation.dateReclamation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>État de la réclamation</th>
+                <td>
+                    {{ reclamation.etatReclamation }}
+                    {% if reclamation.etatReclamation == 0 %}
+                        <span class="badge badge-warning">En attente</span>
+                    {% elseif reclamation.etatReclamation == 1 %}
+                        <span class="badge badge-success">Résolue</span>
+                    {% else %}
+                        <span class="badge badge-danger">Rejetée</span>
+                    {% endif %}
+                    
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index') }}">Retour à la liste</a>
+
+    
+
+    
+{% endblock %}

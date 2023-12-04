@@ -1,0 +1,83 @@
+{% extends 'contact.html.twig' %}
+
+{% block title %}Réclamations{% endblock %}
+
+{% block body %}
+
+     <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-center mb-4">
+                    <img src="{{ asset('images/3447661.png') }}" alt="Description de l'image" style="max-width: 35%; height: auto;">
+                </div>
+                <div class="conseils mt-5 p-4 border rounded">
+                    <h2 class="text-center mb-4" style="font-size: 1.5rem;">Conseils pour remplir le formulaire de réclamation</h2>
+                    <ul class="list-group list-group-flush" style="font-size: 0.9rem;">
+                        <li class="list-group-item">
+                            <i class="bi bi-check2-circle text-success me-2"></i><strong>Soyez précis :</strong> Décrivez clairement les détails de votre réclamation.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2-circle text-success me-2"></i><strong>Utilisez un langage clair :</strong> Évitez les termes techniques ou ambiguïtés pour une meilleure compréhension.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2-circle text-success me-2"></i><strong>Ajoutez des preuves si possible :</strong> Joignez des documents ou des images pour étayer votre réclamation si nécessaire.
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check2-circle text-success me-2"></i><strong>Vérifiez avant de soumettre :</strong> Relisez attentivement votre réclamation avant de la soumettre pour éviter les erreurs.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 border rounded p-4">
+                <h1 class="mb-4">Ajouter une réclamation</h1>
+
+                {% for flash_message in app.flashes('danger') %}
+                    <div class="alert alert-danger">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                
+                {% for flash_message in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+
+                {{ form_start(form) }}
+                    <div class="form-group mb-3">
+                        {{ form_label(form.categorie_reclamation) }}
+                        {{ form_widget(form.categorie_reclamation, {'attr': {'class': 'form-control form-control-sm', 'required': 'required'}}) }}
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        {{ form_label(form.objet_reclamation) }}
+                        {{ form_widget(form.objet_reclamation, {'attr': {'class': 'form-control form-control-sm', 'required': 'required'}}) }}
+                    </div>
+                    
+                    <div class="form-group mb-3">
+                        {{ form_label(form.description_reclamation) }}
+                        {{ form_widget(form.description_reclamation, {'attr': {'class': 'form-control form-control-sm', 'required': 'required'}}) }}
+                    </div>
+                    {# Ajoutez ici des messages d'erreur plus détaillés en cas de validation côté serveur #}
+                    <button type="submit" class="btn btn-primary">
+    <i class="fas fa-check-circle"></i> Valider
+</button>
+
+                    {{ form_end(form) }}
+                    <a href="{{ path('app_reclamation_index') }}" class="btn btn-primary" style="transition: color 0.3s, border 0.3s, font-size 0.3s; border: none;">
+    <i class="fas fa-eye me-2"></i> Consulter mes réclamations
+</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let successMessage = document.querySelector('.alert-success');
+        if (successMessage) {
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 4000);
+        }
+    </script>
+{% endblock %}

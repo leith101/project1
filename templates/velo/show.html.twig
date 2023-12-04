@@ -1,0 +1,44 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Velo{% endblock %}
+
+{% block body %}
+    <h1>Velo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ velo.id }}</td>
+            </tr>
+            <tr>
+                <th>Modele</th>
+                <td>{{ velo.modele }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ velo.etat }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ velo.prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ velo.image }}</td>
+            </tr>
+            <tr>
+                <th>Station</th>
+                <td>{{ velo.station }}</td>
+            </tr>
+        </tbody>
+    </table>
+ {# Ajoutez le lien pour télécharger le fichier CSV #}
+    <a href="{{ path('app_velo_export', {'id': velo.id}) }}">Télécharger CSV</a>
+
+    <a href="{{ path('app_velo_index') }}">back to list</a>
+
+    <a href="{{ path('app_velo_edit', {'id': velo.id}) }}">edit</a>
+
+    {{ include('velo/_delete_form.html.twig') }}
+{% endblock %}

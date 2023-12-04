@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MY Bike</title>
+		<style>
+			body {
+				background: #eee;
+				margin-top: 20px;
+				font-family: Arial, sans-serif;
+				color: #333;
+			}
+
+			.receipt-main {
+				background: #fff;
+				border-bottom: 12px solid #333;
+				border-top: 12px solid #9f181c;
+				margin-top: 50px;
+				margin-bottom: 50px;
+				padding: 40px 30px !important;
+				box-shadow: 0 1px 21px #acacac;
+			}
+
+			.receipt-header,
+			.receipt-header-mid,
+			.receipt-footer {
+				margin-bottom: 20px;
+			}
+
+			.receipt-header img {
+				width: 71px;
+				border-radius: 43px;
+			}
+
+			.receipt-right {
+
+				text-align: center; /* Ajoutez cette ligne pour centrer horizontalement */
+			}
+
+			.receipt-main table {
+				width: 100%;
+			}
+
+			.receipt-main th,
+			.receipt-main td {
+				padding: 10px;
+				text-align: left;
+			}
+
+			.receipt-main th {
+				background-color: #414143;
+				color: #fff;
+			}
+
+			.receipt-main td.text-right {
+				text-align: right;
+			}
+
+			.receipt-main td h2 {
+				font-size: 18px;
+				font-weight: bold;
+				margin: 0;
+			}
+
+			.receipt-footer h1 {
+				font-size: 15px;
+				font-weight: normal;
+				margin: 0;
+			}
+
+			.receipt-footer .receipt-left h1 {
+				font-size: 14px;
+				font-weight: normal;
+				margin: 0;
+			}
+
+			.receipt-header-mid .receipt-left h3 {
+				font-size: 24px;
+				margin: 0;
+				text-align: right;
+				text-transform: uppercase;
+			}
+			{
+				margin-top: 20px;
+			}
+
+			.signature p {
+				font-weight: bold;
+				border: none; /* Supprime le cadre autour du texte */
+			}
+			.signature img.signature-image {
+				max-width: 100%;
+				height: auto;
+				display: block;
+				margin: 10px auto; /* Ajustez la marge selon vos besoins */
+			}
+		</style>
+	</head>
+	<body>
+		<div class="col-md-12">
+    <div class="row">
+        <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="receipt-header">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="receipt-left">
+                            <div class="rounded-image-container" style="border-radius: 43px; overflow: hidden;">
+                                {# <img src="{{ logoBase64 }}" alt="Logo" style="width: 200px; height: auto;"> #}
+                            </div>
+                        </div>
+                    </div>
+							{# <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+																					                            <div class="receipt-right">
+																					                                <h5>Company Name</h5>
+																					                                <p>+1 3649-6589 <i class="fa fa-phone"></i></p>
+																					                                <p>company@gmail.com <i class="fa fa-envelope-o"></i></p>
+																					                                <p>USA <i class="fa fa-location-arrow"></i></p>
+																					                            </div>
+																					                        </div> #}
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="receipt-header receipt-header-mid">
+							<div class="col-xs-8 col-sm-8 col-md-8 text-left">
+								<div class="receipt-left">
+									<h5>cordonner :</h5>
+									<p>
+										<b>phone :</b>
+										92270954</p>
+									<p>
+										<b>Email :</b>
+										mybike@gmail.com</p>
+									<p>
+										<b>Address :</b>
+										Tunis</p>
+								</div>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4">
+								<div class="receipt-right">
+									<h2>MON FACTURE</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<body>
+							<div class="col-md-12">
+								<div
+									class="row"><!-- ... Autres parties de votre facture -->
+								</div>
+
+								<div>
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>nom produit</th>
+												<th>prix 
+                                                </th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- ... Autres lignes de votre facture -->
+
+											{% if panier is not empty %}
+												{% for item in panier %}
+													<tr>
+														<td>{{ item.name }}</td>
+														<td>{{ item.price }}</td>
+														<!-- Vous pouvez ajouter d'autres détails ici si nécessaire -->
+													</tr>
+												{% endfor %}
+											{% else %}
+												<tr>
+													<td colspan="2">Votre panier est vide.</td>
+												</tr>
+											{% endif %}
+
+											<!-- ... Autres lignes de votre facture -->
+										</tbody>
+
+									</table>
+                                    <br>  <br>  <br>  <br>  <br><br>  <br>  <br>  <br>  <br>
+									<div class="signature">
+										<hr>
+	<img src="" alt="Signature" class="signature-image">
+									</div>
+								</div>
+ <br>  <br>
+								<div
+									class="row"><!-- ... Autres parties de votre facture -->
+								</div>
+							</div>
+						</body>
+					</html>

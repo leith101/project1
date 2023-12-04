@@ -1,0 +1,91 @@
+{% extends 'back1.html.twig' %}
+
+{% block body %}
+    <div style="text-align: center; padding: 20px;">
+        <h1 style="color: red; font-family: 'Palatino', serif;">Stations</h1>
+
+        <div style="margin: 0 auto; width: 80%; display: flex; align-items: center; justify-content: space-between;">
+            <div style="flex-basis: 30%;">
+                <img src="{{ asset('images/velosvelos.jpg') }}" alt="Velos Velos" style="width: 400px; height: auto;">
+            </div>
+            <div style="flex-basis: 65%; text-align: left; margin-left: 40px; margin-bottom: 20px;">
+                <h2 style="font-weight: bold; font-size: 32px; text-align: left; font-family: 'Brush Script MT', cursive;">
+                    Découvrez nos stations de vélos bien équipées pour vous offrir le meilleur service. Profitez de nos services premium
+                    pour rendre vos trajets encore plus agréables. Que vous soyez un cycliste passionné ou un utilisateur occasionnel,
+                    nos stations sont là pour répondre à tous vos besoins.
+                </h2>
+            </div>
+        </div>
+
+        <div style="margin: 0 auto; width: 80%;">
+            <table class="table" style="width: 100%; background-color: #f2f2f2; color: #333; margin-top: 20px; text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Nom_s</th>
+                        <th>Emplacement_s</th>
+                        <th>Description_s</th>
+                        <th>Likes</th>
+                        <th>Dislikes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for station in stations %}
+                        <tr>
+                            <td>{{ station.nomS }}</td>
+                            <td>{{ station.emplacementS }}</td>
+                            <td>{{ station.descriptionS }}</td>
+                            <td id="likes-{{ station.id }}">{{ station.likes }}</td>
+                            <td id="dislikes-{{ station.id }}">{{ station.dislikes }}</td>
+                            <td>
+                                <button class="btn btn-primary like-btn" data-id="{{ station.id }}">Like</button>
+                                <button class="btn btn-danger dislike-btn" data-id="{{ station.id }}">Dislike</button>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeButtons = document.querySelectorAll('.like-btn');
+            const dislikeButtons = document.querySelectorAll('.dislike-btn');
+
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const stationId = this.getAttribute('data-id');
+                    sendLikeRequest(stationId);
+                });
+            });
+
+            dislikeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const stationId = this.getAttribute('data-id');
+                    sendDislikeRequest(stationId);
+                });
+            });
+
+            function sendLikeRequest(stationId) {
+                fetch(`/ajax/station/like/${stationId}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById(`likes-${stationId}`).innerText = data.likes;
+                    });
+            }
+
+            function sendDislikeRequest(stationId) {
+                fetch(`/ajax/station/dislike/${stationId}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById(`dislikes-${stationId}`).innerText = data.dislikes;
+                    });
+            }
+        });
+    </script>
+{% endblock %}

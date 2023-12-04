@@ -1,0 +1,20 @@
+{% extends 'back1.html.twig' %}
+
+{% block title %}Edit Station{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; padding: 20px;">
+
+        <h1>Edit Station</h1>
+
+        <div style="margin: 0 auto; width: 60%;">
+            {{ include('station/_form.html.twig', {'button_label': 'Update'}) }}
+            
+            <div style="margin-top: 20px;">
+                <a href="{{ path('app_station_index') }}">Back to List</a>
+            </div>
+
+            {{ include('station/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

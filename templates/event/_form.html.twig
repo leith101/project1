@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(form.place, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(form.price, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(form.date, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">{{ button_label }}</button>
+
+{{ form_end(form) }}

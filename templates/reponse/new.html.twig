@@ -1,0 +1,66 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Nouvelle Réponse{% endblock %}
+
+{% block body %}
+    <style>
+        /* Styles pour la présentation */
+        .response-title {
+            font-size: 48px;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .response-card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .response-card .card-body {
+            padding: 0;
+        }
+
+        .response-link {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            background-color: #ff6b6b;
+            border-color: #ff6b6b;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .response-link:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
+
+    <section id="new-response" class="new-response">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <h1 class="response-title">Créer une nouvelle réponse</h1>
+                    <div class="card response-card">
+                        <div class="card-body">
+                            <!-- Formulaire de création de réponse -->
+                            {{ include('reponse/_form.html.twig') }}
+                        </div>
+                    </div>
+                    <!-- Lien pour revenir à la liste des réponses -->
+                    <a href="{{ path('app_reponse_index') }}" class="btn btn-primary mt-4 response-link">Retour à la liste des réponses</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

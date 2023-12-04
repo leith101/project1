@@ -1,0 +1,48 @@
+{% extends 'contact.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+    <h1>Statistiques</h1>
+    {% for stat in stats %}
+            <p>{{ stat.categorie_reclamation }} : {{ stat.nombreReclamations }}</p>
+        {% endfor %}
+
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <a href="{{ path('app_reclamation_new') }}" class="btn btn-primary">Créer un nouveau</a>
+        
+        <!-- Intégration du graphique -->
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var labels = {{ labels|raw }};
+        var data = {{ data|raw }};
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre de réclamations par catégorie',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

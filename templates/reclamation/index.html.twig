@@ -1,0 +1,125 @@
+{% extends 'contact.html.twig' %}
+
+{% block title %}Index des réclamations{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-4">Index des réclamations</h1>
+            {% for flash_message in app.session.flashbag.get('danger') %}
+                <div class="alert alert-danger">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+            <form action="{{ path('app_reclamation_index') }}" method="GET" id="sortForm" class="mb-4">
+    <label for="sort_by">Trier par :</label>
+    <select name="sort_by" id="sort_by" class="form-select">
+        <option value="">-- Choisir un critère de tri --</option>
+        <option value="categorie_reclamation">Catégorie réclamation</option>
+        <option value="etat_reclamation">État réclamation</option>
+        <option value="date_reclamation">Date réclamation</option>
+        <!-- Ajoutez d'autres options selon vos besoins -->
+    </select>
+</form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id_reclamation</th>
+                        <th>Id_utilisateur</th>
+                        <th>Categorie_reclamation</th>
+                        <th>Objet_reclamation</th>
+                        <th>Description_reclamation</th>
+                        <th>Etat_reclamation</th>
+                        <th>Date_reclamation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reclamation in pagination %}
+                        <tr>
+                            <td>{{ reclamation.id }}</td>
+                            <td>{{ reclamation.idUtilisateur }}</td>
+                            <td>{{ reclamation.categorieReclamation }}</td>
+                            <td>{{ reclamation.objetReclamation }}</td>
+                            <td>{{ reclamation.descriptionReclamation }}</td>
+                            <td>{{ reclamation.etatReclamation }}</td>
+                            <td>{{ reclamation.dateReclamation ? reclamation.dateReclamation|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_reclamation_show', {'id_reclamation': reclamation.id}) }}" class="btn btn-primary">
+                                    <i class="fas fa-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_reclamation_edit', {'id_reclamation': reclamation.id}) }}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">Aucun enregistrement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Pagination -->
+                <div class="pagination justify-content-end">
+    {{ knp_pagination_render(pagination) }}
+</div>
+
+    <div class="text-center">
+                <div style="max-width: 300px; max-height: 300px; margin: auto;">
+                    <canvas id="etatReclamationsChart" width="200" height="200"></canvas>
+                </div>
+                
+                <!-- Bouton pour créer une nouvelle réclamation -->
+                <a href="{{ path('app_reclamation_new') }}" class="btn btn-success mt-4">Créer une nouvelle réclamation</a>
+            </div>
+        </div>
+    </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Script pour configurer le pie chart -->
+    <script>
+        var labels = [];
+        var data = [];
+
+        // Récupérer les données des statistiques pour le pie chart
+        {% for stat in etat_stats %}
+            labels.push("{{ stat.etat_reclamation ? 'Réclamations traitées' : 'Réclamations non traitées' }}");
+            data.push("{{ stat.nombreReclamations }}");
+        {% endfor %}
+
+        // Configuration du pie chart avec Chart.js
+        var ctx = document.getElementById('etatReclamationsChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Statistiques d\'état des réclamations',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                        // Ajoutez d'autres couleurs si nécessaire
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                        // Ajoutez d'autres couleurs si nécessaire
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Ajoutez des options spécifiques au pie chart si nécessaire
+            }
+        });
+    </script>
+    <script>
+    document.getElementById('sort_by').addEventListener('change', function() {
+        document.getElementById('sortForm').submit();
+    });
+</script>
+{% endblock %}

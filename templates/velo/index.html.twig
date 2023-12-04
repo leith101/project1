@@ -1,0 +1,116 @@
+
+{% extends 'back.html.twig' %}
+
+{% block title %}Velo index{% endblock %}
+
+
+{% block body %}
+
+<br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+    <br><br>
+        
+{% block statistics %}
+<div class="alert alert-info">
+    {{ totalVeloCount }} Vélos au total
+</div>
+    <div class="alert alert-info">
+        {{ availableVeloCount }} Vélos disponibles
+    </div>
+    <div class="alert alert-info">
+    {{ electricVeloCount }} Vélos électriques
+</div>
+{% endblock %}
+        {% for flashMessage in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ flashMessage }}
+    </div>
+    {% endfor %}
+    <h1>Liste des vélos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Modele</th>
+                <th>Etat</th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>Station</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for velo in velos %}
+            <tr>
+                <td>{{ velo.id }}</td>
+                <td>{{ velo.modele }}</td>
+                <td>{{ velo.etat }}</td>
+                <td>{{ velo.prix }}</td>
+                <td>{{ velo.image }}</td>
+                <td>{{ velo.station }}</td>
+                <td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>
+									<form method="post" action="{{ path('app_velo_edit', {'id': velo.id}) }}">
+										<button type="submit" id="confirm-ban-btn" class="btn btn-success">Modifier</button>
+									</form>
+
+								</strong>
+							</td>
+                <td>
+								<i class="fab fa-angular fa-lg text-danger me-3"></i>
+								<strong>
+									<form method="post" action="{{ path('app_velo_delete', {'id': velo.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ velo.id) }}">
+										<button type="submit" id="confirm-ban-btn" class="btn btn-danger">Supprimer</button>
+</form>
+
+								</strong>
+							</td>
+                <td>
+                    <a href="{{ path('app_velo_show', {'id': velo.id}) }}">show</a>
+                    
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+    
+{% endfor %}
+        
+        </tbody>
+    </table>
+     <div class="pagination">
+        {{ knp_pagination_render(velos) }}
+    </div>
+
+<!-- Bouton "Create new" -->
+<div class="d-flex justify-content-center">
+    <a href="{{ path('app_velo_new') }}" class="btn btn-primary btn">Ajouter Velo</a>
+</div>
+<script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+	<br>
+
+
+{% endblock %}

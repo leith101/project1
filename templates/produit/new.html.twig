@@ -1,0 +1,66 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Produits
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xl">
+			<div class="card mb-4">
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h5 class="mb-0">Créer produit</h5>
+				</div>
+				<div class="card-body">
+					{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Nom produit</label>
+						{{ form_widget(form.nomprod, { 'attr': {'class': 'form-control'} }) }}
+						{% if form_errors(form.nomprod) %}
+							<div class="text-danger">{{ form_errors(form.nomprod) }}</div>
+						{% endif %}
+						{% if errors.nomprod is defined %}
+							<div class="text-danger">{{ errors.nomprod }}</div>
+						{% endif %}
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">Prix produit</label>
+						{{ form_widget(form.prixprod, { 'attr': {'class': 'form-control', 'pattern': '[0-9]+', 'min': '1'} }) }}
+						{% if form_errors(form.prixprod) %}
+							<div class="text-danger">{{ form_errors(form.prixprod) }}</div>
+						{% endif %}
+						{% if errors.prixprod is defined %}
+							<div class="text-danger">{{ errors.prixprod }}</div>
+						{% endif %}
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Description produit</label>
+						{{ form_widget(form.descriptionprod, { 'attr': {'class': 'form-control', 'maxlength': '100'} }) }}
+						{% if form_errors(form.descriptionprod) %}
+							<div class="text-danger">{{ form_errors(form.descriptionprod) }}</div>
+						{% endif %}
+						{% if errors.descriptionprod is defined %}
+							<div class="text-danger">{{ errors.descriptionprod }}</div>
+						{% endif %}
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Remise</label>
+						{{ form_widget(form.remise, { 'attr': {'class': 'form-control', 'pattern': '[0-9]+', 'min': '0'} }) }}
+						{% if form_errors(form.remise) %}
+							<div class="text-danger">{{ form_errors(form.remise) }}</div>
+						{% endif %}
+						{% if errors.remise is defined %}
+							<div class="text-danger">{{ errors.remise }}</div>
+						{% endif %}
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Image</label>
+						{{ form_widget(form.imageprod, { 'attr': {'class': 'form-control'} }) }}
+						
+					</div>
+					<button class="btn btn-primary" type="submit">{{ button_label|default('Ajouter produit') }}</button>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

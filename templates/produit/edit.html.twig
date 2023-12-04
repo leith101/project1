@@ -1,0 +1,52 @@
+{% extends 'back.html.twig' %}
+{% block title %}Produits
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-xl">
+			<div class="card mb-4">
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h5 class="mb-0">Modifier produit</h5>
+
+				</div>
+				<div class="card-body">
+					{{ form_start(form) }}
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Nom produit</label>
+
+
+						{{ form_widget(form.nomprod, { 'value': produit.nomprod, 'attr': {'class': 'form-control'} }) }}
+
+
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">prix produit</label>
+						{{ form_widget(form.prixprod, { 'value': produit.prixprod, 'attr': {'class': 'form-control'} }) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Description produit</label>
+						{{ form_widget(form.descriptionprod, { 'value': produit.descriptionprod, 'attr': {'class': 'form-control'} }) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Remise</label>
+						{{ form_widget(form.remise, { 'value': produit.remise, 'attr': {'class': 'form-control'} }) }}
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">image</label>
+						{{ form_widget(form.imageprod, { 'value': produit.imageprod, 'attr': {'class': 'form-control'} }) }}
+					</div>
+
+
+					<button class="btn btn-primary">{{ button_label|default('Modifier votre produit') }}</button>
+
+				</form>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

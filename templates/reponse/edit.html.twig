@@ -1,0 +1,75 @@
+{% extends 'back.html.twig' %}
+{% block title %}Modifier la réponse{% endblock %}
+
+{% block body %}
+    <style>
+        /* Styles pour le formulaire */
+        .card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-update {
+            background-color: #17a2b8; /* Bleu clair */
+            color: #fff; /* Texte en blanc */
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease; /* Transition de couleur au survol */
+        }
+        .btn-update:hover {
+            background-color: #138496; /* Nouvelle couleur au survol */
+        }
+        .btn-back, .btn-delete {
+            margin-top: 10px;
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-back {
+            color: #6c757d;
+            border: 1px solid #6c757d;
+        }
+        .btn-delete {
+            color: #fff;
+            background-color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+        .btn-back:hover {
+            color: #495057;
+            background-color: #e9ecef;
+            border-color: #6c757d;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+        }
+    </style>
+
+    <h1>Modifier la réponse</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <!-- Formulaire de modification de la réponse -->
+            {{ include('reponse/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
+    </div>
+
+    <a href="{{ path('app_reponse_index') }}" class="btn-back">Retour à la liste</a>
+
+    {{ include('reponse/_delete_form.html.twig') }}
+{% endblock %}
