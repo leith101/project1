@@ -25,6 +25,9 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'attr' => [
+                'novalidate' => 'novalidate', // Désactive la validation HTML5 côté client pour le formulaire
+            ],
         ]);
     }
 }

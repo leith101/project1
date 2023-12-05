@@ -1,4 +1,36 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{# your_template.html.twig #}
+{{ form_start(form, {'attr': {'class': 'custom-form'}}) }}
+
+<div class="col-md-6">
+    <div class="form-group">
+        {{ form_label(form.velo) }}
+        {{ form_widget(form.velo, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.velo) }}
+    </div>
+</div>
+
+
+
+<div class="form-group">
+    {{ form_label(form.start_date) }}
+    {{ form_widget(form.start_date, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.start_date) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.end_date) }}
+    {{ form_widget(form.end_date, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.end_date) }}
+</div>
+<div class="col-md-6">
+    <div class="form-group">
+        {{ form_label(form.prix) }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.prix) }}
+    </div>
+</div>
+
+
+<button class="btn btn-primary" style="margin-top: 10px;">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}
