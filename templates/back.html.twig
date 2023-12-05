@@ -184,11 +184,20 @@
              </li>
                <li class="menu-header small text-uppercase">    <span class="menu-header-text">Gestion des stations</span></li>
              <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="{{ path('app_station_index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Station</div>
               </a>
             </li>
+
+            <li class="menu-header small text-uppercase">    <span class="menu-header-text">Gestion des maintenance</span></li>
+            <li class="menu-item">
+             <a href="{{ path('app_maintenance_index')}}" class="menu-link">
+               <i class="menu-icon tf-icons bx bx-collection"></i>
+               <div data-i18n="Basic">maintenance</div>
+             </a>
+           </li>
+          
 
              </li>
                <li class="menu-header small text-uppercase">    <span class="menu-header-text">Gestion des reclamation</span></li>

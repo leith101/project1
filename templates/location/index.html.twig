@@ -60,39 +60,26 @@
 				<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 				<nav id="navbar" class="navbar">
 					<ul>
-						<li>
-							<a href="index.html">Home</a>
-						</li>
-						<li>
-							<a href="{{ path('app_location_index')}}" class="active">Reservation</a>
-						</li>
-						<li>
-							<a href="services.html">Evennement</a>
-						</li>
-						<li>
-							<a href="projects.html">Shop</a>
-						</li>
-						<li>
-							<a href="blog.html">Station</a>
-						</li>
-						<li class="dropdown">
-							<a href="#">
-								<span>Dropdown</span>
-								<i class="bi bi-chevron-down dropdown-indicator"></i>
-							</a>
-							<ul>
-								<li>
-									<a href="{{ path('app_statistics')}}">about</a>
-								</li>
-								
-								
-							</ul>
-						</li>
-						<li>
-							<a href="{{ path('account')}}">Profile</a>
+					  <li><a href="index.html" class="active">Home</a></li>
+					  <li><a href="{{ path('app_location_index')}}">Reservation</a></li>
+					  <li><a href="{{ path('app_fronto')}}">Evennement</a></li>
+					  <li><a href="{{ path('app_produit_front')}}">shop</a></li>
+					  <li><a href="{{ path('app_station_front')}}">Station</a></li>
+					  <li><a href="{{ path('app_reclamation_index')}}">reclamation</a></li>
+					  <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+						  <li><a href="{{ path('app_statistics')}}">About</a></li>
+			  
+						</ul>
+					  </li>
+					   <li class="menu-item">
+						  <a href="{{ path('account')}}" class="menu-link">
+							<i class="menu-icon tf-icons bx bx-home-circle"></i>
+							<div>profile</div>
+						  </a>
 						</li>
 					</ul>
-				</nav>
+				  </nav>
 				<!-- .navbar -->
 
 			</div>
