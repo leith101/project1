@@ -36,7 +36,7 @@ class EventController extends AbstractController
             return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('event/new.html.twig', [
+        return $this->renderForm('event/new.html.twig', [
             'event' => $event,
             'form' => $form,
         ]);
@@ -64,7 +64,7 @@ class EventController extends AbstractController
             
         }
 
-        return $this->render('event/edit.html.twig', [
+        return $this->renderForm('event/edit.html.twig', [
             'event' => $event,
             'form' => $form,
         ]);
