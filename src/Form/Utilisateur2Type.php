@@ -6,7 +6,8 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 class Utilisateur2Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -15,14 +16,15 @@ class Utilisateur2Type extends AbstractType
             ->add('email')
             ->add('password')
             ->add('username')
-            ->add('image', FileType::class, [
-                'label' => 'image',
-                'mapped' => false,
-                'required'=>false]) 
-            
-            //->add('imageprod')
-        
-            
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme',
+                    'Autre' => 'Autre',
+                ],
+                'placeholder' => 'Sélectionnez le genre',
+            ])
+            ->add('date')
         ;
     }
 
