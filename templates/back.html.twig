@@ -28,6 +28,7 @@
     />
 
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 
     <meta name="description" content="" />
 
@@ -867,6 +868,8 @@
               </div>
             </div>
             {% endblock %}
+            <script src="//code.jquery.com/jquery.js"></script>
+            <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
             <!-- / Content -->
 
             <!-- Footer -->
@@ -938,5 +941,6 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js')}}"></script>
     {% endblock %}
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
   </body>
 </html>
